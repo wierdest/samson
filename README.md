@@ -1,4 +1,4 @@
-# samson
+# [samson](https://wierdest.github.io/samson)
 ## Simple drum track player for musical practice.
 I play the guitar, so I thought why not build something I can use?
 It was hard to find a simple drum track player, that simply worked out of the box.
