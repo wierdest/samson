@@ -20,7 +20,14 @@ Going on YouTube and trying to find drum tracks was becoming too annoying.
 - Tilt your head to the right
 - Depending on the state of the player, it will **add** a track, **fade** it **in** or **fade** it **out** and **remove** it.
 
-## There's still a lot to be immplemented!
+## There's still a lot to be implemented! Here's what I have in mind:
+- Adding original tracks by local artists
+- Finishing up some general functionality that is, I'm sure you have noticed, still missing: Repeat, Favorite, Edit buttons have yet to be implemented.
+- Improving the pose model, this one was made in less than 5 minutes!
+- Adding the ability to train the user's own pose model **probably the next thing I will try!**
+- Better audio visualizations.
+- Custom theming
+- Different players for different drum track styles
 
 
 
