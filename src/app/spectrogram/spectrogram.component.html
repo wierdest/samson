@@ -2,10 +2,10 @@
   <mat-card-content>
       <canvas #spectrogram class="spectrogram"></canvas>
       <div class="spinner-container" *ngIf="backTrackAudioService.startedLoadingBuffer">
-        <img class="samson" src="/samson.png">
+        <img class="samson" src="samson.png">
         <mat-spinner></mat-spinner>
       </div>
-      <img class="samson" src="/samson.png"  *ngIf="!backTrackAudioService.startedLoadingBuffer && !bufferLoad && !isPlaying">
+      <img class="samson" src="samson.png"  *ngIf="!backTrackAudioService.startedLoadingBuffer && !bufferLoad && !isPlaying">
     </mat-card-content>
     
 </mat-card>
