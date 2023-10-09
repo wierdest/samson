@@ -1,0 +1,251 @@
+<app-gesture-control 
+(fadeOut)="handleFadeOutGestureControl()" 
+(fadeIn)="handleFadeInGestureControl()" 
+(closeComponent)="handleCloseGestureControl()" *ngIf="hasGestureControl"></app-gesture-control>
+<div class="player">
+    <mat-card class="player-header-card">
+        <mat-card-subtitle>
+            <div class="duration-display" style="text-align: right;">
+                {{ trackProgress | formatTime }} / {{ (trackDuration| formatTime)}}
+            </div>
+        </mat-card-subtitle>
+        <mat-card-title>
+            <mat-progress-bar [value]="calculateProgress()" mode="determinate"></mat-progress-bar>
+            <div *ngIf="!hasGestureControl">
+                <app-waveform [currentTime]="trackProgress"></app-waveform>
+                <app-spectrogram></app-spectrogram>
+
+            </div>
+           
+            <app-oscilloscope></app-oscilloscope>
+        </mat-card-title>
+
+        <mat-card-actions class="player-header-controls">
+    
+            <div class="button-container">
+                <button mat-fab color="primary" [disabled]="track === null" [@fabRotate]="isPlaying? 'closed' : 'open'" (click)="togglePlayback()" class="play-button">
+                <mat-icon class="play-icon">
+                    {{ isPlaying ? 'stop' : 'play_arrow' }}
+                </mat-icon>
+            </button>
+            </div>
+    
+            <div class="volume-control">
+                <button mat-icon-button color="accent" (click)="setDefaultVolume()">
+                    <mat-icon>volume_down</mat-icon>
+                    </button>
+                    <div class="volume-slider">
+                        <mat-slider min="0" max="100" step="1" showTickMarks discrete [displayWith]="formatVolumeSliderLabel">
+                            <input matSliderThumb [(ngModel)]="volumeValue" (input)="onVolumeChange($event)">
+                        </mat-slider>
+                        
+                    </div>
+            </div>
+    
+            <div class="button-container">
+                <button mat-icon-button color="accent"  (click)="pauseSelectedTrack()" [disabled]="!isPlaying">
+                    <mat-icon mat-list-icon>pause</mat-icon>
+                </button>
+            </div>
+    
+            <div class="button-container"  *ngIf="tracklist.length >= 2">
+                <button mat-icon-button color="accent"  (click)="playNext()">
+                    <mat-icon mat-list-icon>skip_next</mat-icon>
+                </button>
+            </div>
+    
+            <div class="button-container"  *ngIf="tracklist.length >= 1">
+                <button mat-icon-button  color="accent" (click)="playNext()">
+                    <mat-icon mat-list-icon>repeat_one</mat-icon>
+                </button>
+            </div>
+            
+            <div class="button-container"  *ngIf="tracklist.length >= 1">
+                <button mat-icon-button color="accent"  >
+                    <mat-icon mat-list-icon>favorite</mat-icon>
+                </button>
+            </div>
+
+            <div class="button-container">
+                <button mat-icon-button color="warn" (click)="setGestureControl()">
+                    <mat-icon mat-list-icon>accessibility_new</mat-icon>
+                </button>
+            </div>
+
+        </mat-card-actions>
+    
+        <!-- <mat-card-footer>
+            <app-oscilloscope></app-oscilloscope>
+        </mat-card-footer> -->
+    </mat-card>
+
+    <div class="player-body">
+        <app-tracklist></app-tracklist>
+        <mat-accordion>
+            <app-back-track-table (playOrJustLoadSelectedTrack)="selectedTrackPlayOrJustLoad($event)"></app-back-track-table>
+            <!-- <app-one-shot-track-table></app-one-shot-track-table> -->
+        </mat-accordion>
+        <div class="track-controls" *ngIf="tracklist.length > 0">
+            <mat-expansion-panel class="player-track-pan-and-fade" expanded="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>cable</mat-icon><h3>Track Pan & Fade</h3>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="pan-and-fade-controls">
+                    <mat-card>
+                        <mat-card-actions>
+                            <div class="button-container"  *ngIf="hasFadeOut || (tracklist.length >= 1 && !isPlaying)">
+                                <button mat-stroked-button color="primary" (click)="fadeIn()">
+                                    FADE IN
+                                </button>
+                            </div>
+                            <div class="button-container"  *ngIf="!hasFadeOut && isPlaying  ">
+                                <button mat-stroked-button color="primary" (click)="fadeOut()">
+                                    FADE OUT
+                                </button>
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                    <mat-card>
+                        <div class="pan-control">
+                            <button mat-button (click)="setDefaultPan()">
+                                <mat-icon mat-list-icon>hearing</mat-icon>
+                            </button>
+                            <mat-slider min="0" max="100" step="1" showTickMarks discrete [displayWith]="formatPanSliderLabel">
+                                <input matSliderThumb [(ngModel)]="panValue" (input)="onPanChange($event)">
+                            </mat-slider>
+                            <button mat-button class="mirror-icon" (click)="setDefaultPan()">
+                                <mat-icon mat-list-icon>hearing</mat-icon>
+                            </button>
+                            
+                        </div>
+                        
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel  class="player-track-equalizer">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>equalizer</mat-icon><h3>Track Three-Band Equalizer</h3>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="equalizer-controls">
+                    <mat-card>
+                        <div class="vertical-slider">
+                            <mat-slider min="-12" max="12" step="1" showTickMarks >
+                                <input matSliderThumb [(ngModel)]="equalizerLowValue" (input)="onEqualizerLowSliderChange($event)">
+                            </mat-slider>
+                        </div>
+                        <button mat-raised-button color="primary" class="center-button" (click)="setEqualizerDefaultLow()" class="center-button">
+                            LOW
+                        </button>
+                    </mat-card>
+                    <mat-card>
+                        <div class="vertical-slider">
+                            <mat-slider min="-12" max="12" step="1" showTickMarks >
+                                <input matSliderThumb [(ngModel)]="equalizerMidValue" (input)="onEqualizerMidSliderChange($event)">
+                            </mat-slider>
+                        </div>
+                        <button mat-raised-button color="primary" class="center-button" (click)="setEqualizerDefaultMid()" class="center-button">
+                            MID
+                        </button>
+                    </mat-card>
+                    <mat-card>
+                        <div class="vertical-slider">
+                            <mat-slider min="-12" max="12" step="1" showTickMarks >
+                                <input matSliderThumb [(ngModel)]="equalizerHighValue" (input)="onEqualizerHighSliderChange($event)">
+                            </mat-slider>
+                        </div>
+                        <button mat-raised-button color="primary" class="center-button" (click)="setEqualizerDefaultHigh()" class="center-button">
+                            HIGH
+                        </button>
+                    </mat-card>
+                  
+                </div>
+                <!-- <mat-card>
+                    <mat-card-actions class="equalizer-controls-container center-button">
+                        
+                        <button mat-raised-button color="primary"  (click)="setDefaultCompressionThreshold()" class="center-button">
+                            MID
+                        </button>
+                        <div class="vertical-slider">
+                            <mat-slider min="0" max="100" step="1" showTickMarks >
+                                <input matSliderThumb [(ngModel)]="compressionThresholdValue" (input)="onCompressionThresholdChange($event)">
+                            </mat-slider>
+                        </div>
+                        <button mat-raised-button color="primary"  (click)="setDefaultCompressionThreshold()" class="center-button">
+                            HIGH
+                        </button>
+                        <div class="vertical-slider">
+                            <mat-slider min="0" max="100" step="1" showTickMarks >
+                                <input matSliderThumb [(ngModel)]="compressionThresholdValue" (input)="onCompressionThresholdChange($event)">
+                            </mat-slider>
+                        </div>
+                    </mat-card-actions>
+                    <div class="button-container" >
+                        <button mat-button (click)="pauseSelectedTrack()" class="center-button">
+                            <mat-icon mat-list-icon color="primary">casino</mat-icon>
+                        </button>
+                    </div>
+                    
+                </mat-card> -->
+            </mat-expansion-panel>
+            <mat-expansion-panel  class="player-track-compressor">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>compress</mat-icon><h3>Track Compression</h3>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="compressor-controls">
+                    <mat-card>
+                        <mat-slider min="-60" max="0" step="1" showTickMarks discrete [displayWith]="formatCompressionThresholdSliderLabel">
+                            <input matSliderThumb [(ngModel)]="compressionThresholdValue" (input)="onCompressionThresholdChange($event)">
+                        </mat-slider>
+                        <button mat-raised-button color="primary" class="center-button"  (click)="setDefaultCompressionThreshold()">
+                            Threshold
+                        </button>
+                    </mat-card>
+                    <mat-card>
+                        <mat-slider min="0" max="40" step="1" showTickMarks discrete [displayWith]="formatCompressionKneeSliderLabel">
+                            <input matSliderThumb [(ngModel)]="compressionKneeValue" (input)="onCompressionKneeChange($event)">
+                        </mat-slider>
+                        <button mat-raised-button (click)="setDefaultCompressionKnee()">
+                            Knee
+                        </button>
+                    </mat-card>
+                    <mat-card>
+                        <mat-slider min="1" max="20" step="1" showTickMarks discrete [displayWith]="formatCompressionRatioSliderLabel">
+                            <input matSliderThumb [(ngModel)]="compressionRatioValue" (input)="onCompressionRatioChange($event)">
+                        </mat-slider>
+                        <button mat-raised-button (click)="setDefaultCompressionRatio()">
+                            Ratio
+                        </button>
+                    </mat-card>
+                    <mat-card>
+                        <mat-slider min="0.001" max="1" step=".001" showTickMarks discrete [displayWith]="formatCompressionAttackSliderLabel">
+                            <input matSliderThumb [(ngModel)]="compressionAttackValue" (input)="onCompressionAttackChange($event)">
+                        </mat-slider>
+                        <button mat-raised-button  (click)="setDefaultCompressionAttack()">
+                            Attack
+                        </button>
+                    </mat-card>
+
+                    <mat-card>
+                        <mat-slider min="0.001" max="1" step=".001" showTickMarks discrete [displayWith]="formatCompressionReleaseSliderLabel">
+                            <input matSliderThumb [(ngModel)]="compressionReleaseValue" (input)="onCompressionReleaseChange($event)">
+                        </mat-slider>
+                        <button mat-raised-button (click)="setDefaultCompressionRelease()">
+                            Release
+                        </button>
+                    </mat-card>
+                </div>
+              
+            </mat-expansion-panel>
+        </div>
+
+       
+    </div>
+</div>
+

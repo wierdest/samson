@@ -1,0 +1,64 @@
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.player-header-card {
+  padding: 2%;
+  margin-bottom: 1%;
+}
+
+.volume-control {
+  margin-left: 2%;
+  display: flex;
+}
+
+.pan-and-fade-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.mirror-icon .mat-icon {
+  transform: scaleX(-1);
+}
+
+.fade-slider {
+  margin-left: 5%;
+  width: 100%
+}
+
+.vertical-slider {
+  transform: rotate(270deg) translateY(50px); /* Adjust the value (e.g., 20px) to move it to the right as needed */
+  height: 150px;
+  align-self: center;
+}
+
+
+.equalizer-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  gap: 16px;
+
+}
+
+.compressor-controls { 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  gap: 16px;
+  
+}
+
+
+
+
+
+  

@@ -1,0 +1,28 @@
+<div class="gestures-container">
+   
+    <mat-card class="webcam-card">
+        <mat-card-header>
+            <div class="label-container" *ngIf="webcamLoaded">
+                <mat-icon color="warn">accessibility_new</mat-icon>
+                <mat-card-subtitle>{{ coolingOff ? 'Cool off?' : gesture === "Idle" && !hasTrack ? "Tilt your head!" : gesture}}</mat-card-subtitle>
+            </div>
+        </mat-card-header>
+        <mat-card-content class="content-container">
+           
+            <div class="spinner-container" *ngIf="!webcamLoaded">
+                <!-- Loading spinner or any content you want to display while webcam is loading -->
+                <img class="samson" src="/assets/samson.png">
+                <mat-spinner></mat-spinner>
+            </div>
+            <div class="progress-container" *ngIf="webcamLoaded">
+                <mat-progress-bar #progressBar color="warn"></mat-progress-bar>
+            </div>
+            <div #webcam></div>
+        </mat-card-content>
+        <button *ngIf="webcamLoaded" (click)="close()" color="warn" class="close-button" mat-mini-fab><mat-icon>close</mat-icon></button>
+
+    
+    </mat-card>
+</div>
+
+

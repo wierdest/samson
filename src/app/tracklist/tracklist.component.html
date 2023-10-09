@@ -1,0 +1,21 @@
+<mat-card class="tracklist-card">
+    <mat-card-content >
+      <ng-container *ngIf="tracklist.length > 0; else noTracks">
+        <!-- Display player characters as chips if the array is not empty -->
+        <mat-chip-set cdkDropList 
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let track of tracklist; let i = index" cdkDrag>
+          <mat-chip-option [selected]="i < 2" [color]=" i === 0? 'primary' : i === 1 ? 'warn' : 'accent'" [class.shake]="i === 0 && isPlaying"> 
+            {{ track.title }} {{track.beatsPerMinute}}bpm 
+            <mat-icon matChipRemove (click)="removeTrack(track)">cancel</mat-icon>
+          </mat-chip-option>
+        </div>
+        </mat-chip-set>
+      </ng-container>
+      <ng-template #noTracks>
+        <!-- Display a message if the player characters array is empty -->
+        <mat-chip [disabled]="true">Add a track!</mat-chip>      
+      </ng-template>
+    </mat-card-content>
+  </mat-card>

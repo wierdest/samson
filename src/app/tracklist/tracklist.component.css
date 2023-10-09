@@ -1,0 +1,20 @@
+.tracklist-card {
+    text-align: left;
+}
+
+@keyframes shake {
+    0% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+    100% {
+      transform: rotate(-4deg);
+    }
+  }
+  
+  .shake {
+    animation: shake .5s ease infinite; /* Adjust the duration and timing function as needed */
+  }
+  

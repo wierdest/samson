@@ -1,0 +1,56 @@
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    width: 100%; /* Set the container width to 30% of the screen */
+    padding-top: 4%;
+    padding-bottom: 4%;
+    background: linear-gradient(45deg, #FF1493, #FF69B4, #FF1493, #FF69B4);
+    animation: gradientAnimation 20s ease infinite;
+}
+
+
+.header {
+    font-family: 'RubikBubbles', sans-serif;
+    font-size: 96px;
+    color: white; /* Make text transparent initially */
+    text-align: left; /* Center the text */
+    text-shadow: 0 0 10px deeppink, /* White glow */
+                0 0 20px deeppink, /* White glow */
+                0 0 30px deeppink; /* White glow */
+}
+
+.subtitle {
+    font-family: 'Noto', sans-serif;
+    font-size: 36px;
+}
+
+.paragraph {
+    font-family: 'Noto', serif;
+    font-size: 18px;
+}
+
+.flipped-image {
+    transform: scaleX(-1.2);
+    margin-right: 2%;
+    
+}
+
+.icon-text {
+    margin-left: 2%; /* Adjust the value to control the amount of space between the icon and text */
+}
+
+
+

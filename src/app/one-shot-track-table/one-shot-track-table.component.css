@@ -1,0 +1,60 @@
+.filter-table-field {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+/* Remove or modify these styles as needed */
+.element-row:hover {
+    background: darkgrey;
+}
+
+.element-row:active {
+    background: rgb(187, 31, 96);
+}
+
+.expanded-element-row {
+    background: rgb(187, 31, 96);
+  }
+
+.element-detail {
+    overflow: hidden;
+    display: flex;
+}
+.element-detail-row {
+    height: 0;
+}
+/* Add any necessary styles here */
+.element-diagram {
+    min-width: 80px;
+    max-width: 30%;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.button-and-paginator-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between; /* Align items to each end of the container */
+    align-items: center; /* Vertically center items within the container */
+}
+
+.back-track-button-row {
+    display: flex; /* Use flexbox layout */
+    justify-content: space-between; /* Distribute items evenly with space in between */
+    width: 100%; /* Take up the whole available width */
+}
+
+.back-track-button-row button {
+    flex-grow: 1; /* Allow buttons to grow and take up equal space */
+    margin: 1% 1%; /* Add spacing between buttons horizontally */
+}
+
