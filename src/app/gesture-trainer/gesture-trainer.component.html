@@ -1,0 +1,11 @@
+<h1>Pose Trainer with Movenet Lightning.</h1>
+
+<p #status>Awaiting TF.js load</p>
+
+<video #webcam autoplay muted></video>
+
+<button #enableCam (click)="enableWebCam()">Enable Webcam</button>
+<button class="dataCollector" [attr.data-1hot]="0" [attr.data-name]="'Class 1'" (mousedown)="gatherDataForClass(0)" (mouseup)="gatherDataForClass(0)">Gather Class 1 Data</button>
+<button class="dataCollector" [attr.data-1hot]="1" [attr.data-name]="'Class 2'" (mousedown)="gatherDataForClass(1)" (mouseup)="gatherDataForClass(1)">Gather Class 2 Data</button>
+<button #train (click)="trainAndPredict()">Train &amp; Predict!</button>
+<button #reset (click)="resetTrainer()">Reset</button>

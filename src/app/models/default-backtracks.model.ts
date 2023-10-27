@@ -37,22 +37,22 @@ export class DefaultBackTracks {
 
             new BackTrack(
                 'Track 11', 
-                'prod.dailydailydaily', 
-                'Neo Soul', 
-                110,
+                'JunzMuzik',
+                'Funk', 
+                120,
                 0, 
                 './assets/track11.mp3',
-                'https://youtu.be/SY64iGdbfBE?si=9Vtl1r9jT8IjcS-i'
+                'https://youtu.be/_mSxePYM7-8?si=E0828eCos069YAA4'
             ),
 
             new BackTrack(
                 'Track 4', 
-                'DRUMSTATION', 
-                'Afrobeat Reggaeton', 
-                88, 
+                'JunzMuzik', 
+                'Funk', 
+                100, 
                 0, 
                 './assets/track4.mp3',
-                'https://youtu.be/ikQE0MzwidY?si=2yBpKJw_idfDTMbm'
+                'https://youtu.be/nfwaDgXvjnk?si=nT5Vz9rjOPFsnOll'
     
             ),
 

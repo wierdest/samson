@@ -11,7 +11,6 @@ Going on YouTube and trying to find drum tracks was becoming too annoying.
 - Tensorflow.js;
 ## It features...
 - a few selected drum tracks presented in a searchable table component.
-- simple audio visualizations.
 - a 3-band equalizer.
 - a compressor.
 - a [Teachable Machine](https://teachablemachine.withgoogle.com/) pose model to allow gesture controls.
@@ -28,6 +27,3 @@ Going on YouTube and trying to find drum tracks was becoming too annoying.
 - Better audio visualizations.
 - Custom theming
 - Different players for different drum track styles
-
-
-

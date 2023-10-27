@@ -27,6 +27,7 @@ import { WaveformComponent } from './waveform/waveform.component';
 import { OscilloscopeComponent } from './oscilloscope/oscilloscope.component';
 import { SpectrogramComponent } from './spectrogram/spectrogram.component';
 import { GestureControlComponent } from './gesture-control/gesture-control.component';
+import { GestureTrainerComponent } from './gesture-trainer/gesture-trainer.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { GestureControlComponent } from './gesture-control/gesture-control.compo
     OscilloscopeComponent,
     SpectrogramComponent,
     GestureControlComponent,
+    GestureTrainerComponent,
   ],
   imports: [
     BrowserModule,

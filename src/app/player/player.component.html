@@ -11,13 +11,12 @@
         </mat-card-subtitle>
         <mat-card-title>
             <mat-progress-bar [value]="calculateProgress()" mode="determinate"></mat-progress-bar>
-            <div *ngIf="!hasGestureControl">
+            <!-- <div *ngIf="!hasGestureControl">
                 <app-waveform [currentTime]="trackProgress"></app-waveform>
                 <app-spectrogram></app-spectrogram>
 
             </div>
-           
-            <app-oscilloscope></app-oscilloscope>
+            <app-oscilloscope></app-oscilloscope> -->
         </mat-card-title>
 
         <mat-card-actions class="player-header-controls">
@@ -69,6 +68,11 @@
             <div class="button-container">
                 <button mat-icon-button color="warn" (click)="setGestureControl()">
                     <mat-icon mat-list-icon>accessibility_new</mat-icon>
+                </button>
+            </div>
+            <div class="button-container">
+                <button mat-icon-button color="accent" routerLink="/trainer">
+                    <mat-icon mat-list-icon>settings_accessibility</mat-icon>
                 </button>
             </div>
 
